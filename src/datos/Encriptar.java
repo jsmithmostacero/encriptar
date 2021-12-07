@@ -4,15 +4,15 @@ package datos;
 import java.util.ArrayList;
 
 
-public class Encriptar {
+public final class Encriptar {
     
     private final ArrayList<Integer> numeros = new ArrayList<>();
     private int combinaciones, variables;
-    private final String conjunto = "abcdefghijklmnñopqrstuvwxyz123456789ABCDEFGHIJKLMÑOPQRSTUVWXYZá ";
+    private final String conjunto = "abcdefghijklmnñopqrstuvwxyz0123456789ABCDEFGHIJKLMÑOPQRSTUVWXYZá ";
     private final String texto = "|!¿#$%&/()=?¡¨*][{}]";
     private final char[] abc = conjunto.toCharArray();
     private final char[] tex = texto.toCharArray();
-    private String conjuntoTexto;
+    private final String conjuntoTexto;
     private String cifrado="";
     private String descifrado="";
     
@@ -60,7 +60,7 @@ public class Encriptar {
     public ArrayList<String> generarTabla() {
         ArrayList<String> combi = new ArrayList<>();
         
-        variables = 15;
+        variables = 13;
         combinaciones = (int)Math.pow(2,variables);
         String msj = "";
         int v = 0;
@@ -110,7 +110,6 @@ public class Encriptar {
 
     public void descifrado() {
         int nul;
-
         String x = "";
         ArrayList<String> muestra = new ArrayList<>();
         ArrayList<Integer> n = new ArrayList<>();
