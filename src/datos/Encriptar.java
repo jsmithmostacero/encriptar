@@ -8,14 +8,14 @@ public class Encriptar {
     
     private final ArrayList<Integer> numeros = new ArrayList<>();
     private int combinaciones, variables;
-    private final String conjunto = "abcdefghijklmnñopqrstuvwxyz ";
-    private final String texto = "|!#$%&/()=";
+    private final String conjunto = "abcdefghijklmnñopqrstuvwxyz123456789ABCDEFGHIJKLMÑOPQRSTUVWXYZá ";
+    private final String texto = "|!¿#$%&/()=?¡¨*][{}]";
     private final char[] abc = conjunto.toCharArray();
     private final char[] tex = texto.toCharArray();
     private String conjuntoTexto;
     private String cifrado="";
     private String descifrado="";
-
+    
     public Encriptar(String conjuntoTexto) {
         this.conjuntoTexto = conjuntoTexto;
         encriptar();
@@ -23,7 +23,6 @@ public class Encriptar {
     }
     
     public void posicion() {
-
         char[] palabra = conjuntoTexto.toCharArray();
 
         for (int i = 0; i < palabra.length; i++) {
@@ -60,8 +59,9 @@ public class Encriptar {
 
     public ArrayList<String> generarTabla() {
         ArrayList<String> combi = new ArrayList<>();
-        combinaciones = 1024;
-        variables = 10;
+        
+        variables = 15;
+        combinaciones = (int)Math.pow(2,variables);
         String msj = "";
         int v = 0;
         for (int i = 0; i < combinaciones; i++) {
@@ -98,7 +98,7 @@ public class Encriptar {
                 } else {
                     cont++;
                 }
-                if (cont == 10) {
+                if (cont == variables) {
                     msj += tex[0];
                 }
             }
@@ -110,8 +110,8 @@ public class Encriptar {
 
     public void descifrado() {
         int nul;
-        boolean estado = false;
-        String x = "", com = "";
+
+        String x = "";
         ArrayList<String> muestra = new ArrayList<>();
         ArrayList<Integer> n = new ArrayList<>();
         char[] criptado = cifrado.toCharArray();
@@ -133,11 +133,11 @@ public class Encriptar {
             for (int j = 0; j < ele.length; j++) {
                 for (int k = 0; k < tex.length; k++) {
                     if (ele[j] == tex[k]) {
-                            valor+=Math.pow(2, 9-k);
+                            valor+=Math.pow(2, variables-1-k);
                     }
                 } 
             }
-            if(valor==512){
+            if(valor==(int)(Math.pow(2, variables-1))){
                 valor=0;
             }
             nul = (int)Math.sqrt(valor);
@@ -156,17 +156,10 @@ public class Encriptar {
         return cifrado;
     }
 
-    public void setCifrado(String cifrado) {
-        this.cifrado = cifrado;
-    }
-
     public String getDescifrado() {
         return descifrado;
     }
 
-    public void setDescifrado(String descifrado) {
-        this.descifrado = descifrado;
-    }
     
     
 
