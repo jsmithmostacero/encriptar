@@ -22,53 +22,63 @@ public class Formulario extends javax.swing.JFrame {
         btnDesin = new javax.swing.JLabel();
         btnEncrip = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txtEncriptado1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtTexto.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        txtTexto.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtTexto.setBorder(null);
         txtTexto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTextoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, 240, 40));
+        getContentPane().add(txtTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 200, 30));
 
-        txtDesencriptar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtDesencriptar.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         txtDesencriptar.setBorder(null);
-        getContentPane().add(txtDesencriptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 240, 30));
+        getContentPane().add(txtDesencriptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, 210, 30));
 
-        txtEncriptado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtEncriptado.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         txtEncriptado.setBorder(null);
         txtEncriptado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtEncriptadoMouseClicked(evt);
             }
         });
-        getContentPane().add(txtEncriptado, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 240, 30));
+        getContentPane().add(txtEncriptado, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 380, 210, 30));
 
         btnDesin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDesinMouseClicked(evt);
             }
         });
-        getContentPane().add(btnDesin, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, 200, 30));
+        getContentPane().add(btnDesin, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 200, 30));
 
         btnEncrip.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEncripMouseClicked(evt);
             }
         });
-        getContentPane().add(btnEncrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, 200, 30));
+        getContentPane().add(btnEncrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 200, 30));
 
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 270, 40, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 370, 40, 40));
+
+        txtEncriptado1.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        txtEncriptado1.setBorder(null);
+        txtEncriptado1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtEncriptado1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(txtEncriptado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 210, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fonfo.png"))); // NOI18N
         jLabel1.setText(" ");
@@ -86,7 +96,7 @@ public class Formulario extends javax.swing.JFrame {
             if(txtTexto.getText().equals("")){
                 JOptionPane.showMessageDialog(null,"Ingrese texto","Error",2);
             }else{
-                c = new Encriptar(txtTexto.getText());
+                c = new Encriptar(txtTexto.getText(),txtEncriptado1.getText());
             txtEncriptado.setText(c.getCifrado());
             }
 
@@ -94,7 +104,8 @@ public class Formulario extends javax.swing.JFrame {
 
     private void btnDesinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesinMouseClicked
         try{
-            txtDesencriptar.setText(c.getDescifrado());
+            txtDesencriptar.setText(c.getDescifrado(JOptionPane.showInputDialog(null,"Ingrese clave")));
+         
         }catch( Exception ex){
             JOptionPane.showMessageDialog(null,"Ingrese texto","Error",2);
         }
@@ -112,6 +123,10 @@ public class Formulario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"No hay texto cifrado","Error",2);
         }
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void txtEncriptado1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEncriptado1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEncriptado1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -132,6 +147,7 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtDesencriptar;
     private javax.swing.JTextField txtEncriptado;
+    private javax.swing.JTextField txtEncriptado1;
     private javax.swing.JPasswordField txtTexto;
     // End of variables declaration//GEN-END:variables
 }

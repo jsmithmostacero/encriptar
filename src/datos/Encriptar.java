@@ -7,20 +7,27 @@ import java.util.ArrayList;
 public final class Encriptar {
     
     private final ArrayList<Integer> numeros = new ArrayList<>();
+    private ArrayList<Integer> lista = new ArrayList<>();
     private int combinaciones, variables;
-    private final String conjunto = "abcdefghijklmnñopqrstuvwxyz0123456789ABCDEFGHIJKLMÑOPQRSTUVWXYZá ";
+    private final String conjunto = "abcdefghijklmnñopqrstuvwxyz0123456789ABCDEFGHIJKLMÑOPQRSTUVWXYZ ";
     private final String texto = "|!¿#$%&/()=?¡¨*][{}]";
     private final char[] abc = conjunto.toCharArray();
     private final char[] tex = texto.toCharArray();
     private final String conjuntoTexto;
     private String cifrado="";
     private String descifrado="";
+    private String clave="";
+    private int promedio;
     
-    public Encriptar(String conjuntoTexto) {
+    
+    
+    public Encriptar(String conjuntoTexto,String clave) {
         this.conjuntoTexto = conjuntoTexto;
+        this.clave = clave;
         encriptar();
-        descifrado();
     }
+    
+    
     
     public void posicion() {
         char[] palabra = conjuntoTexto.toCharArray();
@@ -35,10 +42,13 @@ public final class Encriptar {
 
     }
 
+    
     public String retornaValor(int p, int cantidad) {
+
         String msj = "";
         int c = 0, cont1 = 0;
         for (int i = 0; i < combinaciones; i++) {
+            //010101
             if (c == p) {
                 msj = "1";
                 cont1++;
@@ -50,6 +60,7 @@ public final class Encriptar {
                 msj = "0";
                 c++;
             }
+            
             if (i == cantidad) {
                 return msj;
             }
@@ -57,11 +68,14 @@ public final class Encriptar {
         return msj;
     }
 
+
     public ArrayList<String> generarTabla() {
         ArrayList<String> combi = new ArrayList<>();
         
         variables = 13;
         combinaciones = (int)Math.pow(2,variables);
+        
+        
         String msj = "";
         int v = 0;
         for (int i = 0; i < combinaciones; i++) {
@@ -70,6 +84,7 @@ public final class Encriptar {
                 v = (int) Math.pow(2, (variables - 1 - j));
                 msj += retornaValor(v, i);
             }
+            
             combi.add(msj);
             msj = "";
         }
@@ -103,12 +118,56 @@ public final class Encriptar {
                 }
             }
             cont = 0;
+            
             msj += " ";
         }
+        System.out.println(msj);
+        char[] c = clave.toCharArray();
+        
+        for (int i = 0; i < c.length; i++) {
+            promedio+=(int)c[i];
+        }
+        
+        promedio=promedio/c.length;
+        
+//        PRUEBA
+//        System.out.println("Promedio : "+promedio);
+        
+        char[] posiciones = msj.toCharArray();
+        
+//        PRUEBAS
+        System.out.println("Cantidad : "+posiciones.length);
+        for (int i = 0; i < posiciones.length; i++) {
+            System.out.println((int)posiciones[i]+" : "+posiciones[i]);
+        }
+        msj="";
+        int pos=0;
+        for (int i = 0; i < posiciones.length; i++) {
+            pos = (int)(posiciones[i])+promedio;
+            lista.add(((int)posiciones[i])+promedio);
+            
+            msj+=(char)(int)lista.get(i);
+//            PRUEBA
+//            System.oysut.println(pos+" : "+(char)pos);
+        }
+        
         this.cifrado = msj;
+        
+        
     }
 
-    public void descifrado() {
+    public void descifrado(String clave) {
+        if(clave.equals(this.clave)){
+            int prom=0;
+        char[] c = clave.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            prom+=(int)c[i];
+        }
+        prom=prom/c.length;
+        cifrado="";
+        for (int i = 0; i < lista.size(); i++) {
+            cifrado+=(char)(int)(lista.get(i)-prom);
+        }
         int nul;
         String x = "";
         ArrayList<String> muestra = new ArrayList<>();
@@ -149,17 +208,22 @@ public final class Encriptar {
         for (int i = 0; i < n.size(); i++) {
             descifrado+=abc[n.get(i)];  
         }
+        }else{
+            descifrado="CLAVE ERRONEA";
+        }
+        
     }
+    
+
 
     public String getCifrado() {
         return cifrado;
     }
 
-    public String getDescifrado() {
+    public String getDescifrado(String clave) {
+        descifrado(clave);
         return descifrado;
     }
 
-    
-    
 
 }

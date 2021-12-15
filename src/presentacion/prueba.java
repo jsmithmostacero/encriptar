@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package presentacion;
 
 import datos.Encriptar;
@@ -13,12 +12,12 @@ import datos.Encriptar;
  * @author Jsmith
  */
 public class prueba {
-    
-    public static void main(String[] args) {
-        Encriptar c  =new Encriptar("Jonáthan Smith Mostacero 1234569");
-        System.out.println(c.getCifrado());
-        System.out.println(c.getDescifrado());
- 
-    }
 
+    public static void main(String[] args) {
+        
+        for (int i = 0; i < 1000; i++) {
+            System.out.println(i+" : "+(char)i);
+        }
+        
+    }
 }
